@@ -1,0 +1,37 @@
+{
+  "name": "@deadlybro/teamly.js",
+  "version": "1.1.0",
+  "description": "A powerful JavaScript library for interacting with the Teamly.one API.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [
+    "teamly",
+    "api",
+    "wrapper",
+    "library",
+    "typescript",
+    "javascript",
+    "nodejs",
+    "node.js"
+  ],
+  "author": "DeadLyBro",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "node-fetch": "^2.7.0",
+    "ws": "^8.18.3",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node-fetch": "^2.6.12",
+    "@types/ws": "^8.18.1"
+  }
+}
