@@ -231,5 +231,3 @@ Here's a list of common events:
 ## Contributing
 
 Feel free to open issues or pull requests on the GitHub repository.
-
-```
