@@ -4,6 +4,9 @@
 
 A powerful JavaScript library for interacting with the Teamly.one API.
 
+## Community Server
+[DeadLyBro/teamly.js](https://teamly.one/invite/d9d1dc49e0256f23)
+
 ## Installation
 
 ```bash
