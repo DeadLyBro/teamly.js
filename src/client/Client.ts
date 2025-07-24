@@ -9,41 +9,59 @@ import { User, Message, Channel, Team, Role, Todo, Application, Emoji, Announcem
  */
 interface ClientEvents {
     'ready': [user: User];
-    'messageCreate': [message: Message];
-    'messageUpdate': [message: Message];
-    'messageDelete': [messageId: string, channelId: string];
+    
     'channelCreate': [channel: Channel];
-    'channelUpdate': [channel: Channel];
     'channelDelete': [channelId: string, teamId: string];
-    'messageReactionAdd': [messageId: string, emojiId: string, reactedBy: User];
-    'messageReactionRemove': [messageId: string, emojiId: string, reactedBy: User];
-    'presenceUpdate': [userId: string, presence: number, userRPC: UserRPC];
+    'channelUpdate': [channel: Channel];
+    
+    'messageCreate': [message: Message, channelId: string, teamId: string, channelType: string];
+    'messageUpdate': [message: Message, channelId: string, teamId: string, channelType: string];
+    'messageDelete': [messageId: string, channelId: string, teamId: string];
+
+    'messageReactionAdd': [messageId: string, channelType: string, channelId: string, teamId: string, emojiId: string, reactedBy: User];
+    'messageReactionRemove': [messageId: string, channelType: string, channelId: string, teamId: string, emojiId: string, reactedBy: User];
+
+    'presenceUpdate': [userId: string, presence?: number, userRPC?: UserRPC];
+
     'teamRoleCreate': [teamId: string, role: Role];
     'teamRoleDelete': [teamId: string, roleId: string];
     'teamRolesUpdate': [teamId: string, roles: Role[]];
+
     'teamUpdate': [team: Team];
+
     'todoItemCreate': [todo: Todo, channelId: string, teamId: string];
     'todoItemDelete': [todoId: string, channelId: string, teamId: string];
     'todoItemUpdate': [todo: Todo, channelId: string, teamId: string];
+
     'userJoinedTeam': [member: User, teamId: string];
     'userLeftTeam': [member: User, teamId: string];
+
     'userJoinedVoiceChannel': [member: User, channelId: string];
     'userLeftVoiceChannel': [member: User, channelId: string];
+
     'userProfileUpdate': [user: User];
+
     'userRoleAdd': [teamId: string, member: User, role: Role];
     'userRoleRemove': [teamId: string, member: User, role: Role];
+
     'userUpdatedVoiceMetadata': [user: User, channelId: string, isStreaming: boolean, isMuted: boolean, isDeafened: boolean];
+
     'blogCreate': [blog: Blog];
     'blogDelete': [blogId: string, deletedBy: string];
+
     'categoriesPriorityUpdate': [order: string[]];
     'categoryUpdate': [category: Category];
     'categoryDelete': [categoryId: string];
     'categoryCreate': [category: Category];
+
     'channelsPriorityUpdate': [order: string[], categoryId?: string];
+
     'announcementCreate': [teamId: string, channelId: string, announcement: Announcement];
     'announcementDelete': [teamId: string, channelId: string, announcementId: string];
+
     'applicationCreate': [teamId: string, application: Application];
     'applicationUpdate': [teamId: string, changedBy: string, application: Application];
+
     'voiceChannelMove': [userId: string, fromChannelId: string, toChannelId: string, teamId: string, token: string];
 }
 
@@ -65,18 +83,6 @@ export class Client extends EventEmitter<ClientEvents> {
             this.emit('ready', this.user);
         });
 
-        this.ws.on('MESSAGE_SEND', (data: { message: Message }) => {
-            this.emit('messageCreate', data.message);
-        });
-
-        this.ws.on('MESSAGE_UPDATED', (data: { message: Message }) => {
-            this.emit('messageUpdate', data.message);
-        });
-
-        this.ws.on('MESSAGE_DELETED', (data: { messageId: string, channelId: string }) => {
-            this.emit('messageDelete', data.messageId, data.channelId);
-        });
-
         this.ws.on('CHANNEL_CREATED', (data: { channel: Channel }) => {
             this.emit('channelCreate', data.channel);
         });
@@ -89,12 +95,24 @@ export class Client extends EventEmitter<ClientEvents> {
             this.emit('channelDelete', data.channelId, data.teamId);
         });
 
-        this.ws.on('MESSAGE_REACTION_ADDED', (data: { messageId: string, emojiId: string, reactedBy: User }) => {
-            this.emit('messageReactionAdd', data.messageId, data.emojiId, data.reactedBy);
+        this.ws.on('MESSAGE_SEND', (data: { message: Message, channelId: string, teamId: string, channelType: string }) => {
+            this.emit('messageCreate', data.message, data.channelId, data.teamId, data.channelType);
         });
 
-        this.ws.on('MESSAGE_REACTION_REMOVED', (data: { messageId: string, emojiId: string, reactedBy: User }) => {
-            this.emit('messageReactionRemove', data.messageId, data.emojiId, data.reactedBy);
+        this.ws.on('MESSAGE_UPDATED', (data: { message: Message, channelId: string, teamId: string, channelType: string }) => {
+            this.emit('messageUpdate', data.message, data.channelId, data.teamId, data.channelType);
+        });
+
+        this.ws.on('MESSAGE_DELETED', (data: { messageId: string, channelId: string, teamId: string }) => {
+            this.emit('messageDelete', data.messageId, data.channelId, data.teamId);
+        });
+
+        this.ws.on('MESSAGE_REACTION_ADDED', (data: { messageId: string, channelType: string, channelId: string, teamId: string, emojiId: string, reactedBy: User }) => {
+            this.emit('messageReactionAdd', data.messageId, data.channelType, data.channelId, data.teamId, data.emojiId, data.reactedBy);
+        });
+
+        this.ws.on('MESSAGE_REACTION_REMOVED', (data: { messageId: string, channelType: string, channelId: string, teamId: string, emojiId: string, reactedBy: User }) => {
+            this.emit('messageReactionRemove', data.messageId, data.channelType, data.channelId, data.teamId, data.emojiId, data.reactedBy);
         });
 
         this.ws.on('PRESENCE_UPDATE', (data: { userId: string, presence: number, userRPC: UserRPC }) => {

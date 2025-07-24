@@ -1,6 +1,6 @@
 {
   "name": "@deadlybro/teamly.js",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "A powerful JavaScript library for interacting with the Teamly.one API.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -33,5 +33,9 @@
     "typescript": "^5.0.0",
     "@types/node-fetch": "^2.6.12",
     "@types/ws": "^8.18.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DeadLyBro/teamly.js.git"
   }
 }

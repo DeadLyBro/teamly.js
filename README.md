@@ -4,6 +4,9 @@
 
 A powerful JavaScript library for interacting with the Teamly.one API.
 
+## Community Server
+[DeadLyBro/teamly.js](https://teamly.one/invite/d9d1dc49e0256f23)
+
 ## Installation
 
 ```bash
@@ -191,14 +194,14 @@ The `Client` extends `EventEmitter` and emits various events from the WebSocket.
 Here's a list of common events:
 
 - `ready(user: User)`: Emitted when the bot successfully connects and is ready.
-- `messageCreate(message: Message)`: Emitted when a new message is sent.
-- `messageUpdate(message: Message)`: Emitted when a message is updated.
-- `messageDelete(messageId: string, channelId: string)`: Emitted when a message is deleted.
 - `channelCreate(channel: Channel)`: Emitted when a channel is created.
 - `channelUpdate(channel: Channel)`: Emitted when a channel is updated.
 - `channelDelete(channelId: string, teamId: string)`: Emitted when a channel is deleted.
-- `messageReactionAdd(messageId: string, emojiId: string, reactedBy: User)`: Emitted when a reaction is added to a message.
-- `messageReactionRemove(messageId: string, emojiId: string, reactedBy: User)`: Emitted when a reaction is removed from a message.
+- `messageCreate(message: Message, channelId: string, teamId: string, channelType: string)`: Emitted when a new message is sent.
+- `messageUpdate(message: Message, channelId: string, teamId: string, channelType: string)`: Emitted when a message is updated.
+- `messageDelete(messageId: string, channelId: string, teamId: string)`: Emitted when a message is deleted.
+- `messageReactionAdd(messageId: string, channelType: string, channelId: string, teamId: string, emojiId: string, reactedBy: User)`: Emitted when a reaction is added to a message.
+- `messageReactionRemove(messageId: string, channelType: string, channelId: string, teamId: string, emojiId: string, reactedBy: User)`: Emitted when a reaction is removed from a message.
 - `presenceUpdate(userId: string, presence: number, userRPC: any)`: Emitted when a user's presence updates.
 - `teamRoleCreate(teamId: string, role: Role)`: Emitted when a team role is created.
 - `teamRoleDelete(teamId: string, roleId: string)`: Emitted when a team role is deleted.
@@ -231,5 +234,3 @@ Here's a list of common events:
 ## Contributing
 
 Feel free to open issues or pull requests on the GitHub repository.
-
-```

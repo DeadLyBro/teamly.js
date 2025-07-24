@@ -1,5 +1,4 @@
-// const { Client } = require('@deadlybro/teamly.js'); // NPM
-const { Client } = require('../dist/index'); // Without install NPM
+const { Client } = require('@deadlybro/teamly.js');
 require('dotenv').config();
 
 const TOKEN = process.env.BOT_TOKEN; // Get token from environment variables
